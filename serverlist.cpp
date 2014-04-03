@@ -19,6 +19,28 @@ void ServerList::add(Server *server)
     list[size] = *server;
     size = newSize;
 
+    showItems();
+}
+
+void ServerList::remove(Server server)
+{
+    for(int c=0; c<size; c++)
+    {
+        if(list[c] == server) {
+            int newSize = size-1;
+            Server *oldList = list;
+            list = new Server[newSize];
+            for(int c=0; c<newSize; c++)
+            {
+                list[c] = oldList[c];
+            }
+            size = newSize;
+        }
+    }
+    showItems();
+}
+
+void ServerList::showItems() {
     for(int c=0; c<size; c++)
     {
         printf("Server %d:\n", c+1);
@@ -31,9 +53,4 @@ void ServerList::add(Server *server)
             printf("no\n");
         }
     }
-}
-
-void ServerList::remove(Server server)
-{
-
 }

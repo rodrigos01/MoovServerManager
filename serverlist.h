@@ -10,6 +10,8 @@ public:
     void remove(Server server);
 
 private:
+    void showItems();
+
     Server *list;
     int size;
     int pointer;
