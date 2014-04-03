@@ -14,10 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    editserver.cpp
+    editserver.cpp \
+    servermanager.cpp \
+    server.cpp \
+    serverlist.cpp
 
 HEADERS  += mainwindow.h \
-    editserver.h
+    editserver.h \
+    servermanager.h \
+    server.h \
+    serverlist.h
 
 FORMS    += mainwindow.ui \
     editserver.ui
