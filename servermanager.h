@@ -14,6 +14,7 @@ public:
 
 public:
     void addServer(Server *server);
+    void removeServer(Server server);
 };
 
 #endif // SERVERMANAGER_H

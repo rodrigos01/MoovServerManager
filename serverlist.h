@@ -7,6 +7,12 @@ class ServerList
 public:
     ServerList();
     void add(Server *server);
+    Server get(int index);
+    Server reset();
+    Server next();
+    Server current();
+    Server prev();
+    Server end();
     void remove(Server server);
 
 private:

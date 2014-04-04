@@ -14,6 +14,7 @@ public:
     string getPath();
     void useProxy(bool useProxy);
     bool usingProxy();
+    bool equals(Server &o);
 
 private:
     string name;

@@ -27,3 +27,15 @@ void Server::useProxy(bool useProxy) {
 bool Server::usingProxy() {
     return proxy;
 }
+
+bool Server::equals(Server &o)
+{
+    if(o.getName() == name && o.getPath() == path && o.usingProxy() == proxy)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
