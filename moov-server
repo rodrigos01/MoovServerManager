@@ -1,0 +1,44 @@
+#!/bin/bash
+function echo_usage() {
+  echo "Usage: $0"
+  echo "  -p port:              the http port to listen"
+  echo "  --ssl-port port:      the port to listen to https connections"
+  echo "  --use-default-ports:  use 80 as http port and 443 as https port (may confliuct with existing http server)"
+  echo "  --proxy:              use the moovweb proxy to run the server"
+}
+port=88
+sslport=8443
+while [ $# -ne 0 ]; do
+  case $1 in
+    "-p" )
+      if [ -n $2 ]; then
+        port=$2
+        shift 2
+      else
+        echo_usage
+      fi;;
+    "--ssl-port" )
+      if [ -n $2 ]; then
+        sslport=$2
+        shift 2
+      else
+        echo_usage
+      fi;;
+    "--use-default-ports" )
+      port=80
+      sslport=443
+      shift;;
+    "--proxy" )
+      echo "setting up proxy"
+      sshpass -p asdf42310 ssh -2gNC moovweb@54.232.126.202 -L 81:proxy.moov.sh:80  >/dev/null 2>&1 &
+      export http_proxy="http://proxy.moov.sh:81"
+      export https_proxy="http://proxy.moov.sh:81"
+      ip=`curl -s icanhazip.com`
+      echo "using ip: $ip"
+      /usr/bin/google-chrome --proxy-server=proxy.moov.sh:81 --proxy-bypass-list=127.0.0.1,mlocal.*:$port,mlocal.*:$sslport --user-data-dir=/var/moov/chrome --incognito >/dev/null 2>&1 &
+      shift;;
+    *)
+      echo_usage
+  esac
+done
+/usr/local/bin/moov server -p=$port -ssl-port=$sslport
